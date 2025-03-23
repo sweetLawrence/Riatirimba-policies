@@ -1,0 +1,29 @@
+/* @import "tailwindcss"; */
+
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/preflight.css" layer(base);
+@import "tailwindcss/utilities.css";
+
+@layer theme, base, components, utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+@theme {
+  --breakpoint-*: initial;
+  --breakpoint-sm: 480px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 976px;
+
+
+  /* general bg */
+  --color-back-500: #f5f5fd;
+
+  /* Primary */
+  --color-primary-50: oklch(95.633% 0.0374 211.09);
+
+}
+
+@layer components {}
