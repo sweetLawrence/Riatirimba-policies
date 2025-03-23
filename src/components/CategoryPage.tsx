@@ -416,13 +416,13 @@ export default function CategoryPage () {
                   <li
                     key={doc.id}
                     onClick={() => handleOpenPDF(doc)}
-                    className='bg-white shadow rounded-lg p-4 hover:bg-gray-50'
+                    className='bg-white shadow rounded-lg p-4 hover:bg-gray-50 mb-2 flex flex-col'
                   >
                     <a
                       href={`https://riatirimba.pockethost.io/api/files/Policies/${doc.id}/${doc.policydoc}`}
                       target='_blank'
                       rel='noopener noreferrer'
-                      className='text-blue-600 hover:underline'
+                      className='text-blue-600 hover:underline m-2'
                     >
                       📄 {doc.name}
                     </a>
@@ -431,7 +431,7 @@ export default function CategoryPage () {
                       href={`https://riatirimba.pockethost.io/api/files/Policies/${doc.id}/${doc.policydoc}`}
                       download={doc.name}
                       onClick={e => e.stopPropagation()} // Prevent triggering the PDF open
-                      className=' bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 ml-[50%]'
+                      className=' bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 w-[120px] text-center ml-[1%] '
                     >
                       Download
                     </a>
