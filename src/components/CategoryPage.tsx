@@ -387,7 +387,8 @@ export default function CategoryPage () {
                    
                   className='mb-2 bg-white shadow rounded-lg p-4 hover:bg-gray-50'
                 >
-                  <div className='x'>📄{doc.name}</div>
+                  <div className='x'>{doc.name}</div>
+                  {/* 📄  */}
                   
                   {/* <a
                     href={`https://riatirimba.pockethost.io/api/files/Policies/${doc.id}/${doc.policydoc}`}
@@ -424,7 +425,8 @@ export default function CategoryPage () {
                       rel='noopener noreferrer'
                       className='text-blue-600 hover:underline m-2'
                     >
-                      📄 {doc.name}
+                      {doc.name}
+                      {/* 📄  */}
                     </a>
 
                     <a

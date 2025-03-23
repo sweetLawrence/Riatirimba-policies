@@ -423,7 +423,8 @@ export default function Home() {
                     rel='noopener noreferrer'
                     className='text-blue-600 hover:underline'
                   >
-                    <div className="x">📄{doc.name}</div>
+                    <div className="x">{doc.name}</div>
+                    {/* 📄  */}
                     
 
                   </a>
