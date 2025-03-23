@@ -421,10 +421,19 @@ export default function Home() {
                     href={`https://riatirimba.pockethost.io/api/files/Policies/${doc.id}/${doc.policydoc}`}
                     target='_blank'
                     rel='noopener noreferrer'
-                    className='text-blue-600 hover:underline'
+                    className='text-blue-600 hover:underline flex flex-col'
                   >
-                    <div className="x">{doc.name}</div>
+                    <div className="x mb-2">{doc.name}</div>
                     {/* 📄  */}
+                    <a
+                    href={`https://riatirimba.pockethost.io/api/files/Policies/${doc.id}/${doc.policydoc}`}
+                    download={doc.name}
+                    target="_blank"
+                    onClick={e => e.stopPropagation()} // Prevent triggering the PDF open
+                    className=' bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 w-[120px] text-center'
+                  >
+                    Download
+                  </a>
                     
 
                   </a>
