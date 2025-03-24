@@ -402,6 +402,14 @@ import { BsFolderFill } from 'react-icons/bs'
 
 export default function Home() {
   const [searchResults, setSearchResults] = useState<any[]>([])
+    
+  const handleOpenPDF = (doc: any) => {
+    const pdfUrl = `https://riatirimba.pockethost.io/api/files/Policies/${doc.id}/${doc.policydoc}`
+    const googleViewer = `https://docs.google.com/gview?url=${encodeURIComponent(
+      pdfUrl
+    )}&embedded=true`
+    window.open(googleViewer, '_blank')
+  }
 
   return (
     <div className='min-h-screen bg-gray-50'>
@@ -415,6 +423,7 @@ export default function Home() {
               {searchResults.map(doc => (
                 <div
                   key={doc.id}
+                  onClick={() => handleOpenPDF(doc)}
                   className='mb-5 bg-white shadow rounded-lg p-4 hover:bg-gray-50'
                 >
                   <a
