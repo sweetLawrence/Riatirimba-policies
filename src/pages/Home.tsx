@@ -402,6 +402,7 @@ import { BsFolderFill } from 'react-icons/bs'
 
 export default function Home() {
   const [searchResults, setSearchResults] = useState<any[]>([])
+
     
   const handleOpenPDF = (doc: any) => {
     const pdfUrl = `https://riatirimba.pockethost.io/api/files/Policies/${doc.id}/${doc.policydoc}`
@@ -432,7 +433,7 @@ export default function Home() {
                     rel='noopener noreferrer'
                     className='text-blue-600 hover:underline flex flex-col'
                   >
-                    <div className="x mb-2">{doc.name}</div>
+                    <p className="x mb-2">{doc.name}</p>
                     {/* 📄  */}
                     <a
                     href={`https://riatirimba.pockethost.io/api/files/Policies/${doc.id}/${doc.policydoc}`}
