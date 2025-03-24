@@ -55,10 +55,6 @@
 //   )
 // }
 
-
-
-
-
 // import { useState } from 'react'
 // import { Link } from 'react-router-dom'
 // import Searchbar from './Searchbar'
@@ -117,8 +113,6 @@
 //   )
 // }
 
-
-
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Searchbar from './Searchbar'
@@ -130,7 +124,7 @@ interface NavbarProps {
   onSearchResults: (results: any[]) => void
 }
 
-export default function Navbar({ onSearchResults }: NavbarProps) {
+export default function Navbar ({ onSearchResults }: NavbarProps) {
   const [search, setSearch] = useState('')
   const [searching, setSearching] = useState(false)
   const [hasSearched, setHasSearched] = useState(false)
@@ -172,15 +166,26 @@ export default function Navbar({ onSearchResults }: NavbarProps) {
 
   return (
     <div className='flex flex-col md:flex-row items-center justify-between bg-white p-4 shadow'>
-      <a href="/" onClick={handleLogoClick}>
+      <a href='/' onClick={handleLogoClick}>
         <Image src={LOGO} className='w-[50px] cursor-pointer' />
       </a>
 
       <div className='flex w-full md:w-auto gap-2 mt-4 md:mt-0 items-center'>
-        <Searchbar value={search} onChange={e => setSearch(e.target.value)} />
+        <Searchbar value={search} 
+         onKeyDown={e => {
+            if (e.key === 'Enter') {
+              handleSearch()
+            }
+          }}
+        onChange={e => setSearch(e.target.value)} />
+
         <button
           onClick={handleSearch}
-          className={`px-5 py-2 rounded-lg ${searching ? 'bg-gray-400' : 'bg-blue-600 hover:bg-blue-700 text-white'}`}
+          className={`px-5 py-2 rounded-lg ${
+            searching
+              ? 'bg-gray-400'
+              : 'bg-blue-600 hover:bg-blue-700 text-white'
+          }`}
           disabled={searching}
         >
           {searching ? 'Searching...' : 'Search'}

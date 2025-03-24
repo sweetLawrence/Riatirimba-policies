@@ -420,20 +420,21 @@ export default function Home() {
         {searchResults.length > 0 ? (
           <div className='mt-6'>
             <h2 className='text-2xl font-semibold mb-4'>Search Results:</h2>
-            {/* <ul className='space-y-4'> */}
+            <ul className='space-y-4'>
               {searchResults.map(doc => (
-                <div
+                <li
                   key={doc.id}
                   onClick={() => handleOpenPDF(doc)}
                   className='mb-5 bg-white shadow rounded-lg p-4 hover:bg-gray-50'
                 >
-                  <a
+                    < div className="x mb-3.5">{doc.name}</div>
+                  {/* <a
                     href={`https://riatirimba.pockethost.io/api/files/Policies/${doc.id}/${doc.policydoc}`}
                     target='_blank'
                     rel='noopener noreferrer'
                     className='text-blue-600 hover:underline flex flex-col'
                   >
-                    <p className="x mb-2">{doc.name}</p>
+                     */}
                     {/* 📄  */}
                     <a
                     href={`https://riatirimba.pockethost.io/api/files/Policies/${doc.id}/${doc.policydoc}`}
@@ -446,11 +447,11 @@ export default function Home() {
                   </a>
                     
 
-                  </a>
-                </div>
+                  {/* </a> */}
+                </li>
              
               ))}
-            {/* </ul> */}
+            </ul>
           </div>
         ) : (
           <div className='mt-8'>
