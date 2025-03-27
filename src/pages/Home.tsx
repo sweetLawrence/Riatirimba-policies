@@ -434,7 +434,7 @@ export default function Home () {
       {isMobile && (
         <button
           onClick={handleScrollDown}
-          className='w-[60px] h-[60px] flex items-center justify-center text-white bg-blue-800 rounded-full font-bold absolute right-5 bottom-15'
+          className='w-[60px] h-[60px] flex items-center justify-center text-white bg-blue-800 rounded-full font-bold absolute right-5 bottom-9'
           // className='w-[20px] h-[20px] fixed bottom-5 left-1/2 transform -translate-x-1/2 bg-blue-500 text-white p-3 rounded-full shadow-lg hover:bg-blue-600'
         >
           {/* ↓ */}
