@@ -5,7 +5,5 @@ export const categories = [
     path: 'finance'
   },
   { name: 'Education, Training and HR Committee', path: 'academics' },
-  { name: 'Boards 10-2024 Minutes', path: 'minutes' },
-  { name: 'Board Charter', path: 'charter' },
   { name: 'Full Board Committees Overview', path: 'fullboard' }
 ]
