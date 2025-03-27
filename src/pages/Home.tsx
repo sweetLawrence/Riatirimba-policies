@@ -236,36 +236,6 @@
 //   )
 // }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // import { useState } from 'react'
 // import Searchbar from '../components/Searchbar'
 // import { categories } from '../data/categories'
@@ -376,34 +346,22 @@
 //   )
 // }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 import { useState } from 'react'
 import Navbar from '../components/Navbar'
 import { categories } from '../data/categories'
 import { Link } from 'react-router-dom'
 import { BsFolderFill } from 'react-icons/bs'
+import { useMediaQuery } from '@mantine/hooks'
+import { IconArrowDown } from "@tabler/icons-react";
 
-export default function Home() {
+export default function Home () {
   const [searchResults, setSearchResults] = useState<any[]>([])
+  const isMobile = useMediaQuery('(max-width: 768px)')
 
-    
+  const handleScrollDown = () => {
+    window.scrollBy({ top: 250, behavior: 'smooth' }) // Adjust value as needed
+  }
+
   const handleOpenPDF = (doc: any) => {
     const pdfUrl = `https://riatirimba.pockethost.io/api/files/Policies/${doc.id}/${doc.policydoc}`
     const googleViewer = `https://docs.google.com/gview?url=${encodeURIComponent(
@@ -427,7 +385,7 @@ export default function Home() {
                   onClick={() => handleOpenPDF(doc)}
                   className='mb-5 bg-white shadow rounded-lg p-4 hover:bg-gray-50'
                 >
-                    < div className="x mb-3.5">{doc.name}</div>
+                  <div className='x mb-3.5'>{doc.name}</div>
                   {/* <a
                     href={`https://riatirimba.pockethost.io/api/files/Policies/${doc.id}/${doc.policydoc}`}
                     target='_blank'
@@ -435,21 +393,19 @@ export default function Home() {
                     className='text-blue-600 hover:underline flex flex-col'
                   >
                      */}
-                    {/* 📄  */}
-                    <a
+                  {/* 📄  */}
+                  <a
                     href={`https://riatirimba.pockethost.io/api/files/Policies/${doc.id}/${doc.policydoc}`}
                     download={doc.name}
-                    target="_blank"
+                    target='_blank'
                     onClick={e => e.stopPropagation()} // Prevent triggering the PDF open
                     className=' bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 w-[120px] text-center'
                   >
                     Download
                   </a>
-                    
 
                   {/* </a> */}
                 </li>
-             
               ))}
             </ul>
           </div>
@@ -475,6 +431,16 @@ export default function Home() {
           </div>
         )}
       </div>
+      {isMobile && (
+        <button
+          onClick={handleScrollDown}
+          className='w-[60px] h-[60px] flex items-center justify-center text-white bg-blue-800 rounded-full font-bold absolute right-5 bottom-15'
+          // className='w-[20px] h-[20px] fixed bottom-5 left-1/2 transform -translate-x-1/2 bg-blue-500 text-white p-3 rounded-full shadow-lg hover:bg-blue-600'
+        >
+          {/* ↓ */}
+          <IconArrowDown />
+        </button>
+      )}
     </div>
   )
 }
