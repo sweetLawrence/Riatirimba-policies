@@ -14,7 +14,6 @@ const Layout = () => {
   return (
     <div>
       {/* {isSmallScreen ? <MobileNav /> : <Navbar />} */}
-
       <main>
         <Outlet />
       </main>

@@ -1,9 +1,6 @@
 import { TextInput } from '@mantine/core';
 import { IconSearch } from '@tabler/icons-react';
 
-// import { Text } from "@mantine/core";
-
-
 interface SearchbarProps {
   value: string;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
