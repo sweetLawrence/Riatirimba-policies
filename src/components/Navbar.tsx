@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import Searchbar from './Searchbar'
 import { Image } from '@mantine/core'
 import LOGO from '../assets/logo.png'
@@ -13,6 +13,7 @@ export default function Navbar ({ onSearchResults }: NavbarProps) {
   const [search, setSearch] = useState('')
   const [searching, setSearching] = useState(false)
   const [hasSearched, setHasSearched] = useState(false)
+   const { quarter } = useParams() 
   const navigate = useNavigate()
 
   const handleSearch = async () => {
@@ -27,9 +28,19 @@ export default function Navbar ({ onSearchResults }: NavbarProps) {
       )
       const items = res.data.items
 
-      const filtered = items.filter((doc: any) =>
-        doc.name.toLowerCase().includes(search.toLowerCase())
-      )
+      // const filtered = items.filter((doc: any) =>
+      //   doc.name.toLowerCase().includes(search.toLowerCase())
+      // )
+      const filtered = items
+  .filter((doc: any) =>
+    doc.name.toLowerCase().includes(search.toLowerCase()) &&
+    doc.quarter === quarter  // ✅ Only include matching quarter
+  )
+
+      .map((doc: any) => ({
+          ...doc,
+          name: `${doc.name} - ${quarter || 'Q?'}`  // 👈 Append quarter
+        }))
 
       onSearchResults(filtered)
     } catch (err) {

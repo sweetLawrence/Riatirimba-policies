@@ -4,11 +4,19 @@ import { categories } from '../data/categories'
 import { Link } from 'react-router-dom'
 import { BsFolderFill } from 'react-icons/bs'
 import { useMediaQuery } from '@mantine/hooks'
-import { IconArrowDown } from "@tabler/icons-react";
+// import { IconArrowDown } from "@tabler/icons-react";
+import { FiArrowDown } from 'react-icons/fi';
+import { useParams } from 'react-router-dom'
+// import { useEffect } from 'react'
+
+
 
 export default function Home () {
   const [searchResults, setSearchResults] = useState<any[]>([])
   const isMobile = useMediaQuery('(max-width: 768px)')
+
+  const { quarter } = useParams()
+
 
   const handleScrollDown = () => {
     window.scrollBy({ top: 250, behavior: 'smooth' })
@@ -63,7 +71,8 @@ export default function Home () {
               {categories.map((cat, i) => (
                 <Link
                   key={i}
-                  to={`/category/${cat.path}`}
+                  // to={`/category/${cat.path}`}
+                  to={`/category/${quarter}/${cat.path}`}
                   className='bg-white shadow rounded-xl p-6 hover:shadow-lg hover:scale-[1.02] transition-all flex items-center gap-4'
                 >
                   <BsFolderFill className='text-yellow-500 text-3xl' />
@@ -83,7 +92,9 @@ export default function Home () {
          
         >
   
-          <IconArrowDown />
+          {/* <IconArrowDown /> */}
+          <FiArrowDown size={24} />
+
         </button>
       )}
     </div>

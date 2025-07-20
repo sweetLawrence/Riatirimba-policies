@@ -5,7 +5,9 @@ import axios from 'axios'
 import { categories } from '../data/categories'
 
 export default function CategoryPage () {
-  const { categoryPath } = useParams()
+  // const { categoryPath } = useParams()
+  const { categoryPath, quarter } = useParams()
+
   const [searchResults, setSearchResults] = useState<any[]>([])
   const [categoryDocs, setCategoryDocs] = useState<any[]>([])
   const [loading, setLoading] = useState(true)
@@ -15,22 +17,55 @@ export default function CategoryPage () {
     ? matchedCategory.name
     : categoryPath
 
+  // useEffect(() => {
+  //   const fetchDocs = async () => {
+  //     try {
+  //       // const res = await axios.get(
+  //       //   `https://riatirimba.pockethost.io/api/collections/Policies/records`,
+  //       //   { params: { filter: `category="${categoryPath}"` } }
+  //       // )
+  //       const res = await axios.get(
+  //         `https://riatirimba.pockethost.io/api/collections/Policies/records`,
+  //         {
+  //           params: {
+  //             filter: `category="${categoryPath}" && quarter="${quarter}"`
+  //           }
+  //         }
+  //       )
+
+  //       setCategoryDocs(res.data.items)
+  //     } catch (err) {
+  //       console.error('Failed to fetch:', err)
+  //     } finally {
+  //       setLoading(false)
+  //     }
+  //   }
+  //   fetchDocs()
+  // }, [categoryPath])
+
   useEffect(() => {
-    const fetchDocs = async () => {
-      try {
-        const res = await axios.get(
-          `https://riatirimba.pockethost.io/api/collections/Policies/records`,
-          { params: { filter: `category="${categoryPath}"` } }
-        )
-        setCategoryDocs(res.data.items)
-      } catch (err) {
-        console.error('Failed to fetch:', err)
-      } finally {
-        setLoading(false)
-      }
+  const fetchDocs = async () => {
+    try {
+      const res = await axios.get(
+        `https://riatirimba.pockethost.io/api/collections/Policies/records`,
+        {
+          params: {
+            filter: `category="${categoryPath}" && quarter="${quarter}"`
+          }
+        }
+      );
+
+      setCategoryDocs(res.data.items);
+    } catch (err) {
+      console.error('Failed to fetch:', err);
+    } finally {
+      setLoading(false);
     }
-    fetchDocs()
-  }, [categoryPath])
+  };
+
+  fetchDocs();
+}, [categoryPath, quarter]);  // ✅ Include quarter here
+
 
   const handleOpenPDF = (doc: any) => {
     const pdfUrl = `https://riatirimba.pockethost.io/api/files/Policies/${doc.id}/${doc.policydoc}`
@@ -45,6 +80,11 @@ export default function CategoryPage () {
       <Navbar onSearchResults={setSearchResults} />
 
       <div className='max-w-4xl mx-auto p-4'>
+        <h2 className='text-xl text-gray-600 mb-2'>
+          Showing documents for <strong>{displayCategoryName}</strong> -{' '}
+          <strong>{quarter}</strong>
+        </h2>
+
         {searchResults.length > 0 ? (
           <div className='mt-6'>
             <h2 className='text-2xl font-semibold mb-4'>Search Results:</h2>
@@ -53,16 +93,15 @@ export default function CategoryPage () {
                 <li
                   key={doc.id}
                   onClick={() => handleOpenPDF(doc)}
-                   
                   className='mb-2 bg-white shadow rounded-lg p-4 hover:bg-gray-50 flex flex-col'
                 >
                   <div className='x mb-2'>{doc.name}</div>
                   {/* 📄  */}
-                  
+
                   <a
                     href={`https://riatirimba.pockethost.io/api/files/Policies/${doc.id}/${doc.policydoc}`}
                     download={doc.name}
-                    target="_blank"
+                    target='_blank'
                     onClick={e => e.stopPropagation()} // Prevent triggering the PDF open
                     className=' bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 w-[120px] text-center'
                   >
@@ -75,7 +114,7 @@ export default function CategoryPage () {
         ) : (
           <>
             <h2 className='text-2xl font-semibold mb-6 text-gray-800'>
-            {displayCategoryName}
+              {displayCategoryName}
             </h2>
 
             {loading ? (
@@ -95,7 +134,6 @@ export default function CategoryPage () {
                       className='text-blue-600 hover:underline m-2'
                     >
                       {doc.name}
-                      
                     </a>
 
                     <a
