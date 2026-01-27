@@ -112,12 +112,13 @@ import LOGO from '../assets/logo.png'
 import { motion } from 'framer-motion'
 
 export default function QuarterSelector() {
-  const quarters = ['2024-2025.Q3', '2024-2025.Q4', '2025-2026.Q1','MOU']
+  const quarters = ['2024-2025.Q3', '2024-2025.Q4', '2025-2026.Q1','2025-2026.Q2','MOU']
 
   const displayLabels: Record<string, string> = {
     '2024-2025.Q3': '3rd Quarter • 2024–2025 • Board & Committee Docs',
     '2024-2025.Q4': '4th Quarter • 2024–2025 • Board & Committee Docs',
     '2025-2026.Q1': '1st Quarter • 2025–2026 • Board & Committee Docs',
+    '2025-2026.Q2': '2nd Quarter • 2025–2026 • Board & Committee Docs',
     'MOU':'MOU and Policy Documents Folder'
   }
 
