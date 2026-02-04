@@ -9,14 +9,11 @@
 // import { useParams } from 'react-router-dom'
 // // import { useEffect } from 'react'
 
-
-
 // export default function Home () {
 //   const [searchResults, setSearchResults] = useState<any[]>([])
 //   const isMobile = useMediaQuery('(max-width: 768px)')
 
 //   const { quarter } = useParams()
-
 
 //   const handleScrollDown = () => {
 //     window.scrollBy({ top: 250, behavior: 'smooth' })
@@ -46,7 +43,7 @@
 //                   className='mb-5 bg-white shadow rounded-lg p-4 hover:bg-gray-50'
 //                 >
 //                   <div className='x mb-3.5'>{doc.name}</div>
-                 
+
 //                   <a
 //                     href={`https://riatirimba.pockethost.io/api/files/Policies/${doc.id}/${doc.policydoc}`}
 //                     download={doc.name}
@@ -57,7 +54,6 @@
 //                     Download
 //                   </a>
 
-       
 //                 </li>
 //               ))}
 //             </ul>
@@ -89,9 +85,9 @@
 //         <button
 //           onClick={handleScrollDown}
 //           className='w-[60px] h-[60px] flex items-center justify-center text-white bg-blue-800 rounded-full font-bold fixed right-5 bottom-5'
-         
+
 //         >
-  
+
 //           {/* <IconArrowDown /> */}
 //           <FiArrowDown size={24} />
 
@@ -100,15 +96,6 @@
 //     </div>
 //   )
 // }
-
-
-
-
-
-
-
-
-
 
 // import { useState } from 'react'
 // import Navbar from '../components/Navbar'
@@ -229,36 +216,6 @@
 //     </div>
 //   )
 // }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // import { useState } from 'react'
 // import Navbar from '../components/Navbar'
@@ -390,10 +347,6 @@
 //   )
 // }
 
-
-
-
-
 import { useState, useEffect } from 'react'
 import Navbar from '../components/Navbar'
 import { categories } from '../data/categories'
@@ -403,9 +356,12 @@ import { useMediaQuery } from '@mantine/hooks'
 import { FiArrowDown } from 'react-icons/fi'
 import axios from 'axios'
 
-export default function Home() {
+export default function Home () {
   const [searchResults, setSearchResults] = useState<any[]>([])
   const [mouDocs, setMouDocs] = useState<any[]>([])
+
+  const [policiesDocs, setPoliciesDocs] = useState<any[]>([])
+
   const [loading, setLoading] = useState(false)
   const isMobile = useMediaQuery('(max-width: 768px)')
   const { quarter } = useParams()
@@ -441,11 +397,23 @@ export default function Home() {
     return fileUrl
   }
 
+  // const handleOpenFile = (doc: any) => {
+  //   const fileUrl = getFileUrl(doc)
+  //   const viewerUrl = buildViewerUrl(fileUrl)
+  //   window.open(viewerUrl, '_blank')
+  // }
+
   const handleOpenFile = (doc: any) => {
-    const fileUrl = getFileUrl(doc)
-    const viewerUrl = buildViewerUrl(fileUrl)
-    window.open(viewerUrl, '_blank')
+  if (quarter === 'Policies') {
+    window.open('https://policies.riatirimbatvc.ac.ke/', '_blank')
+    return
   }
+
+  const fileUrl = getFileUrl(doc)
+  const viewerUrl = buildViewerUrl(fileUrl)
+  window.open(viewerUrl, '_blank')
+}
+
 
   // ---- Fetch MOU documents when quarter === "MOU" ----
   useEffect(() => {
@@ -457,8 +425,8 @@ export default function Home() {
             `https://riatirimba.pockethost.io/api/collections/Policies/records`,
             {
               params: {
-                filter: `category="MOU"`,
-              },
+                filter: `category="MOU"`
+              }
             }
           )
           setMouDocs(res.data.items)
@@ -470,6 +438,29 @@ export default function Home() {
       }
 
       fetchMouDocs()
+    }
+
+    if (quarter === 'Policies') {
+      const fetchPoliciesDocs = async () => {
+        setLoading(true)
+        try {
+          const res = await axios.get(
+            `https://riatirimba.pockethost.io/api/collections/Policies/records`,
+            {
+              params: {
+                filter: `category="Policies"`
+              }
+            }
+          )
+          setPoliciesDocs(res.data.items)
+        } catch (err) {
+          console.error('Failed to fetch Policies docs:', err)
+        } finally {
+          setLoading(false)
+        }
+      }
+
+      fetchPoliciesDocs()
     }
   }, [quarter])
 
@@ -564,6 +555,63 @@ export default function Home() {
             ) : (
               <p className='text-gray-600 text-center text-lg mt-10'>
                 No MOU or policy documents found.
+              </p>
+            )}
+          </div>
+        ) : quarter === 'Policies' ? (
+          <div className='mt-12'>
+            <h2 className='text-3xl font-extrabold mb-8 text-blue-900 text-center'>
+              Policies and Strategic Plan
+            </h2>
+
+            {loading ? (
+              <div className='flex justify-center items-center mt-12'>
+                <div className='animate-spin rounded-full h-10 w-10 border-t-4 border-b-4 border-blue-600'></div>
+                <span className='ml-4 text-gray-600 text-lg'>
+                  Loading documents...
+                </span>
+              </div>
+            ) : policiesDocs.length > 0 ? (
+              <ul className='space-y-5'>
+                {policiesDocs.map(doc => (
+                  <li
+                    key={doc.id}
+                    onClick={() => handleOpenFile(doc)}
+                    className='cursor-pointer bg-white/70 backdrop-blur-md border border-white/40 shadow-md hover:shadow-xl hover:scale-[1.02] transition-all duration-300 p-5 rounded-2xl'
+                  >
+                    <div className='text-lg font-medium text-gray-800 mb-4'>
+                      {doc.name}
+                    </div>
+
+                    <div className='flex items-center gap-4'>
+                      <a
+                        // href={getFileUrl(doc)}
+                        href='https://policies.riatirimbatvc.ac.ke/'
+                        target='_blank'
+                        rel='noopener noreferrer'
+                        // onClick={e => e.preventDefault()}
+                        onClick={e => {
+                          e.stopPropagation() // 👈 stops parent onClick
+                        }}
+                        className='inline-block bg-gradient-to-r from-blue-600 to-indigo-500 text-white px-5 py-2.5 rounded-xl hover:from-blue-700 hover:to-indigo-600 transition-all shadow-md'
+                      >
+                        View
+                      </a>
+                      {/* <a
+                        href={getFileUrl(doc)}
+                        download={doc.name}
+                        onClick={e => e.stopPropagation()}
+                        className='inline-block bg-gradient-to-r from-blue-600 to-indigo-500 text-white px-5 py-2.5 rounded-xl hover:from-blue-700 hover:to-indigo-600 transition-all shadow-md'
+                      >
+                        Download
+                      </a> */}
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p className='text-gray-600 text-center text-lg mt-10'>
+                No Policies & Strategic plan documents found.
               </p>
             )}
           </div>
