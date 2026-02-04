@@ -119,7 +119,7 @@ export default function QuarterSelector() {
     '2024-2025.Q4': '4th Quarter • 2024–2025 • Board & Committee Docs',
     '2025-2026.Q1': '1st Quarter • 2025–2026 • Board & Committee Docs',
     '2025-2026.Q2': '2nd Quarter • 2025–2026 • Board & Committee Docs',
-    'MOU':'MOU and Policy Documents Folder',
+    'MOU':'MOU',
     'Policies':'Policies and Strategic Plan '
   }
 
