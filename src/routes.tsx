@@ -1,21 +1,28 @@
-import { createBrowserRouter } from 'react-router-dom';
-import Layout from './components/Layout';
-import Home from './pages/Home';
-import CategoryPage from './components/CategoryPage';
-import QuarterSelector from './pages/QuarterSelector';
+import { createBrowserRouter } from 'react-router-dom'
+import Layout from './components/Layout'
+import Home from './pages/Home'
+import CategoryPage from './components/CategoryPage'
+import QuarterSelector from './pages/QuarterSelector'
+import FinancialYearSelector from './pages/FYSelector'
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Layout />, 
+    element: <Layout />,
     children: [
-       {
+      {
         path: '/',
-        element: <QuarterSelector />,
+        // element: <QuarterSelector />,
+        element: <FinancialYearSelector />
+      },
+
+      {
+        path: '/fy/:year',
+        element: <QuarterSelector />
       },
       {
         path: 'home/:quarter',
-        element: <Home />,
+        element: <Home />
       },
       // {
       //   path: 'category/:categoryPath',   // 👈 Dynamic route for category
@@ -25,14 +32,12 @@ const router = createBrowserRouter([
       //   path: 'quarter/:quarter/category/:categoryPath',
       //   element: <CategoryPage />,
       // },
-       {
+      {
         path: '/category/:quarter/:categoryPath',
-        element: <CategoryPage />,
-      },
-      
-     
-    ],
-  },
-]);
+        element: <CategoryPage />
+      }
+    ]
+  }
+])
 
-export default router;
+export default router
