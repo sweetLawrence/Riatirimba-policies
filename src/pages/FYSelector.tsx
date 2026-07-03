@@ -7,7 +7,8 @@ import LOGO from '../assets/logo.png'
 export default function FinancialYearSelector() {
   const years = [
     '2024-2025',
-    '2025-2026'
+    '2025-2026',
+    '2026-2027'
   ]
 
   return (
